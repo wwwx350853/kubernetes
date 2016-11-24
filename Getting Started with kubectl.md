@@ -16,7 +16,8 @@ The executable file of kubectl is generated under the _output/local/bin/linux/am
 Copy kubectl to the /usr/local/bin directory.
 
 	cp _output/local/bin/linux/amd64/kubectl /usr/local/bin/
-	cp -r kube ~/.kube
+	mkdir ~/.kube
+	cp -r kube/* ~/.kube/
 
 ###3. Configure kubectl.###
 Run the following commands to configure kubectl:
