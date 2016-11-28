@@ -100,12 +100,15 @@ func (d *DiscoveryClient) ServerGroups() (apiGroupList *unversioned.APIGroupList
 	var homedir string
 	user, err := user.Current()
 	if nil == err {
-		fmt.Printf("%s/.kube/apis.json", user.HomeDir)
+		homedir = fmt.Sprintf("%s/.kube/apis.json", user.HomeDir)
 	} else {
 		homedir = os.Getenv("HOME")
 	}
 	filepath := fmt.Sprintf("%s/.kube/apis.json", homedir)
-	buf, _ := ioutil.ReadFile(filepath)
+	buf, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		return apiGroupList, fmt.Errorf("fail to read file %s: %v", filepath, err)
+	}
 	json.Unmarshal(buf, apiGroupList)
 
 	return apiGroupList, nil
@@ -158,17 +161,20 @@ func (d *DiscoveryClient) ServerVersion() (*version.Info, error) {
 	var homedir string
 	user, err := user.Current()
 	if nil == err {
-		fmt.Printf("%s/.kube/apis.json", user.HomeDir)
+		homedir = fmt.Sprintf("%s/.kube/version.json", user.HomeDir)
 	} else {
 		homedir = os.Getenv("HOME")
 	}
 	filepath := fmt.Sprintf("%s/.kube/version.json", homedir)
-	buf, _ := ioutil.ReadFile(filepath)
+	buf, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		return nil, fmt.Errorf("fail to read file %s: %v", filepath, err)
+	}
 
 	var info version.Info
 	err = json.Unmarshal(buf, &info)
 	if err != nil {
-		return nil, fmt.Errorf("got '%s': %v", string(buf), err)
+		return &info, fmt.Errorf("fail to unmarhal object %s: %v", string(buf), err)
 	}
 	return &info, nil
 }
