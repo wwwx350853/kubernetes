@@ -100,7 +100,7 @@ func (d *DiscoveryClient) ServerGroups() (apiGroupList *unversioned.APIGroupList
 	var homedir string
 	user, err := user.Current()
 	if nil == err {
-		homedir = fmt.Sprintf("%s/.kube/apis.json", user.HomeDir)
+		homedir = user.HomeDir
 	} else {
 		homedir = os.Getenv("HOME")
 	}
@@ -161,7 +161,7 @@ func (d *DiscoveryClient) ServerVersion() (*version.Info, error) {
 	var homedir string
 	user, err := user.Current()
 	if nil == err {
-		homedir = fmt.Sprintf("%s/.kube/version.json", user.HomeDir)
+		homedir = user.HomeDir
 	} else {
 		homedir = os.Getenv("HOME")
 	}
