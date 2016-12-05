@@ -20,9 +20,19 @@ Copy kubectl to the /usr/local/bin directory.
 	cp -r kube/* ~/.kube/
 
 ###3. Configure kubectl.###
-Run the following commands to configure kubectl:
+In terms of TLS/SSL, we can either skip the certificate verification or use a self-signed certificate. 
+To skip the certificate verification, configuring cluster with following command:
 
 	kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid} --insecure-skip-tls-verify=true
+
+To use self-signed certificate,  
+1 Download the certificate.  
+2 Configuring cluster with following command:   
+	
+	kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid} --certificate-authority={path of certificate file}  
+
+Run the following commands to configure kubectl:
+
 	
 	kubectl config set-credentials {user name} --access-key={access key} --secret-key={secret key} --region-id={region id}
 	
