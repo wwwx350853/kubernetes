@@ -20,19 +20,32 @@ Copy kubectl to the /usr/local/bin directory.
 	cp -r kube/* ~/.kube/
 
 ###3. Configure kubectl.###
-In terms of TLS/SSL, we can either skip the certificate verification or use a self-signed certificate. 
-To skip the certificate verification, configuring cluster with following command:
+
+####1) Set cluster####
+
+In Cloud Container Engine service, multiple clusters are managed within a tenant account. Hence to operate a spedificed cluster, you need set the cluster to kubectl.
+
+To access cluster in Open Telekom Cloud (OTC) or Huawei Web Services (HWS), configure with following command:
+
+        kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid}  
+
+As in OTC and HWS, a certificate is attached in the API Gateway, hence user dones't need to configure certificate manually.
+
+For other CCE deployments, user can either skip the certificate verification or use a self-signed certificate.
+ 
+To skip the certificate verification, configure cluster with following command:
 
 	kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid} --insecure-skip-tls-verify=true
 
-To use self-signed certificate,  
-1 Download the certificate.  
-2 Configuring cluster with following command:   
+To use self-signed certificate, user need:  
+1. Download the certificate.  
+2. Configure cluster with following command:   
 	
 	kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid} --certificate-authority={path of certificate file}  
 
-Run the following commands to configure kubectl:
+####2) Set credentials and context####
 
+Run the following commands to configure kubectl:
 	
 	kubectl config set-credentials {user name} --access-key={access key} --secret-key={secret key} --region-id={region id}
 	
