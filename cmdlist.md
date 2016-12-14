@@ -2,12 +2,13 @@
 
 Command|Parameter|Available in CCE kubectl|
 ----- | ----- | ----- |
- get 	| endpoints | Y |
+ get 	| | Y |
+ 		| endpoints | Y |
      	| namespaces | Y |  
      	| pods | Y |
      	| replicationcontrollers | Y |
      	| secrets | N |
-     	| secret <id> | Y |
+     	| secret {id} | Y |
      	| services | Y |
 create	|endpoints | Y |
 	  	|namespaces | Y |
