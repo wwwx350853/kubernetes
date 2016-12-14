@@ -12,7 +12,7 @@ service "redis-slave" created
 deployment "redis-slave" created
 service "frontend" created
 deployment "frontend" created
-```console
+```
 
 Delete the example app:
 
