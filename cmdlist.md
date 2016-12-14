@@ -2,13 +2,27 @@
 
 Command|Parameter|Available in CCE kubectl|
 ----- | ----- | ----- |
- get 	| | Y |
+ get 	| componentstatuses | N |
+ 		| configmaps | N |
+  		| daemonsets | N |
+  		| deployments | N |
+  		| events | N |
  		| endpoints | Y |
+ 		| horizontalpodautoscalers | N |
+ 		| ingress | N |
+ 		| jobs | N |
+ 		| limitranges | N |
+ 		| nodes | N |
      	| namespaces | Y |  
      	| pods | Y |
+     	| persistentvolumes | N |
+     	| persistentvolumeclaims | N |
+     	| quota / resourcequotas | N |
+     	| replicasets | N |
      	| replicationcontrollers | Y |
      	| secrets | N |
      	| secret {id} | Y |
+     	| serviceaccounts | N |
      	| services | Y |
 create	|endpoints | Y |
 	  	|namespaces | Y |
