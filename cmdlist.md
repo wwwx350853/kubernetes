@@ -1,7 +1,7 @@
 ##Command between CCE kubectl and community edition##
 
 Command|Parameter|Available in CCE kubectl|Description|
- | | | |
+----- | ----- | ----- | ----- |
  get 	| endpoints | Y |
      	| namespaces | Y |  
      	| pods | Y |
