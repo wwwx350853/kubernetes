@@ -24,19 +24,23 @@ Command|Parameter|Available in CCE kubectl|
      	| secret {id} | Y |
      	| serviceaccounts | N |
      	| services | Y |
-create	|endpoints | Y |
+create	| daemonsets | N |
+  		| deployments | N |
+		|endpoints | Y |
 	  	|namespaces | Y |
 		|pods | Y |
 		|replicationcontrollers | Y |
 		|services | Y |
 		|namespaces | Y |		
-replace |	endpoints | Y |
+replace |endpoints | Y |
 		|namespaces | Y |	
 		|pods | Y |
 		|replicationcontrollers	| Y |
 		|secrets | Y |
 		|services | Y |	
-delete	|endpoints | Y |
+delete	| daemonsets | N |
+  		| deployments | N |
+		|endpoints | Y |
 		|namespaces | Y |	
 		|pods | Y |
 		|replicationcontrollers	| Y |
@@ -62,8 +66,8 @@ label	|endpoints	| Y |
 		|replicationcontrollers	| Y |
 		|services	| Y |
 cluster-info|	| Y |
-logs	|| Y |
-api-version|| Y |
+logs	|{pod-id}| Y |
+api-versions|| Y |
 version || Y |
 config  || Y |
 apply   || Y |
