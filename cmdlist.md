@@ -1,12 +1,13 @@
 ##Command between CCE kubectl and community edition##
 
-Command|Parameter|Available in CCE kubectl|Description|
------ | ----- | ----- | ----- |
+Command|Parameter|Available in CCE kubectl|
+----- | ----- | ----- |
  get 	| endpoints | Y |
      	| namespaces | Y |  
      	| pods | Y |
      	| replicationcontrollers | Y |
-     	| secrets | Y |Only one secret can be queried at a time. For example, the command for querying secret -a is Kubectl get secret secret-a.
+     	| secrets | N |
+     	| secret <id> | Y |
      	| services | Y |
 create	|endpoints | Y |
 	  	|namespaces | Y |
