@@ -120,7 +120,7 @@ func ScaleCondition(r Scaler, precondition *ScalePrecondition, namespace, name s
 				return false, err
 			}
 			if e.FailureType == ScaleUpdateFailure {
-				return false, nil
+				return false, err
 			}
 		}
 		return false, err
