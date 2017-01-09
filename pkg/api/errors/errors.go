@@ -300,7 +300,11 @@ func NewGenericServerResponse(code int, verb string, qualifiedResource unversion
 		message = "the server reported a conflict"
 	case http.StatusNotFound:
 		reason = unversioned.StatusReasonNotFound
-		message = "the server could not find the requested resource"
+		if strings.Contains(serverMessage, "cluster does not exist") {
+			message = "the cluster does not exist"
+		}else {
+			message = "the server could not find the requested resource"
+		}
 	case http.StatusBadRequest:
 		reason = unversioned.StatusReasonBadRequest
 		message = "the server rejected our request for an unknown reason"
