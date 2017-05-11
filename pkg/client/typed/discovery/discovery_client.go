@@ -23,6 +23,10 @@ import (
 	"sort"
 	"strings"
 
+	"io/ioutil"
+	"os"
+	"os/user"
+
 	"github.com/emicklei/go-restful/swagger"
 
 	"k8s.io/kubernetes/pkg/api"
@@ -115,30 +119,21 @@ func apiVersionsToAPIGroup(apiVersions *unversioned.APIVersions) (apiGroup unver
 // ServerGroups returns the supported groups, with information like supported versions and the
 // preferred version.
 func (d *DiscoveryClient) ServerGroups() (apiGroupList *unversioned.APIGroupList, err error) {
-	// Get the groupVersions exposed at /api
-	v := &unversioned.APIVersions{}
-	err = d.restClient.Get().AbsPath(d.LegacyPrefix).Do().Into(v)
-	apiGroup := unversioned.APIGroup{}
-	if err == nil {
-		apiGroup = apiVersionsToAPIGroup(v)
-	}
-	if err != nil && !errors.IsNotFound(err) && !errors.IsForbidden(err) {
-		return nil, err
-	}
-
-	// Get the groupVersions exposed at /apis
 	apiGroupList = &unversioned.APIGroupList{}
-	err = d.restClient.Get().AbsPath("/apis").Do().Into(apiGroupList)
-	if err != nil && !errors.IsNotFound(err) && !errors.IsForbidden(err) {
-		return nil, err
+	var homedir string
+	user, err := user.Current()
+	if nil == err {
+		homedir = user.HomeDir
+	} else {
+		homedir = os.Getenv("HOME")
 	}
-	// to be compatible with a v1.0 server, if it's a 403 or 404, ignore and return whatever we got from /api
-	if err != nil && (errors.IsNotFound(err) || errors.IsForbidden(err)) {
-		apiGroupList = &unversioned.APIGroupList{}
+	filepath := fmt.Sprintf("%s/.kube/apis.json", homedir)
+	buf, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		return apiGroupList, fmt.Errorf("fail to read file %s: %v", filepath, err)
 	}
+	json.Unmarshal(buf, apiGroupList)
 
-	// append the group retrieved from /api to the list
-	apiGroupList.Groups = append(apiGroupList.Groups, apiGroup)
 	return apiGroupList, nil
 }
 
@@ -265,14 +260,23 @@ func (d *DiscoveryClient) ServerPreferredNamespacedResources() ([]unversioned.Gr
 
 // ServerVersion retrieves and parses the server's version (git version).
 func (d *DiscoveryClient) ServerVersion() (*version.Info, error) {
-	body, err := d.restClient.Get().AbsPath("/version").Do().Raw()
-	if err != nil {
-		return nil, err
+	var homedir string
+	user, err := user.Current()
+	if nil == err {
+		homedir = user.HomeDir
+	} else {
+		homedir = os.Getenv("HOME")
 	}
-	var info version.Info
-	err = json.Unmarshal(body, &info)
+	filepath := fmt.Sprintf("%s/.kube/version.json", homedir)
+	buf, err := ioutil.ReadFile(filepath)
 	if err != nil {
-		return nil, fmt.Errorf("got '%s': %v", string(body), err)
+		return nil, fmt.Errorf("fail to read file %s: %v", filepath, err)
+	}
+
+	var info version.Info
+	err = json.Unmarshal(buf, &info)
+	if err != nil {
+		return &info, fmt.Errorf("fail to unmarhal object %s: %v", string(buf), err)
 	}
 	return &info, nil
 }

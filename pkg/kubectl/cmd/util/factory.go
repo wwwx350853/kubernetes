@@ -343,7 +343,7 @@ func (f *factory) DiscoveryClient() (discovery.CachedDiscoveryInterface, error) 
 		return nil, err
 	}
 	cacheDir := computeDiscoverCacheDir(filepath.Join(homedir.HomeDir(), ".kube", "cache", "discovery"), cfg.Host)
-	return NewCachedDiscoveryClient(discoveryClient, cacheDir, time.Duration(10*time.Minute)), nil
+	return NewCachedDiscoveryClient(discoveryClient, cacheDir, time.Duration(10000*time.Hour)), nil
 }
 
 func (f *factory) Object() (meta.RESTMapper, runtime.ObjectTyper) {
