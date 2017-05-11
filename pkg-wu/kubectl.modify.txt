@@ -1,0 +1,13 @@
+pkg/client/restclient/config.go
+pkg/client/restclient/transport.go
+pkg/client/transport/config.go 
+pkg/client/transport/round_trippers.go 
+pkg/client/transport/signer.go
+pkg/client/typed/discovery/discovery_client.go 
+pkg/client/unversioned/clientcmd/api/types.go 
+pkg/client/unversioned/clientcmd/api/v1/types.go 
+pkg/client/unversioned/clientcmd/client_config.go 
+pkg/client/unversioned/clientcmd/overrides.go 
+pkg/kubectl/cmd/config/create_authinfo.go 
+pkg/kubectl/cmd/config/create_cluster.go 
+pkg/kubectl/cmd/util/factory.go 
