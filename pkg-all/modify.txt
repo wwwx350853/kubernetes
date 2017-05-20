@@ -1,0 +1,15 @@
+   modified:   pkg/client/restclient/config.go
+        modified:   pkg/client/restclient/transport.go
+        modified:   pkg/client/transport/config.go
+        modified:   pkg/client/transport/round_trippers.go
+         add        pkg/client/transport/signer.go
+        modified:   pkg/client/unversioned/clientcmd/api/types.go
+        modified:   pkg/client/unversioned/clientcmd/api/v1/types.go
+        modified:   pkg/client/unversioned/clientcmd/client_config.go
+        modified:   pkg/client/unversioned/clientcmd/overrides.go
+        modified:   pkg/kubectl/cmd/config/create_authinfo.go
+        modified:   pkg/kubectl/cmd/config/create_cluster.go
+        modified:   pkg/kubectl/cmd/util/cached_discovery.go
+        modified:   pkg/kubectl/cmd/util/factory.go
+        add         kubectlconfig/
+
