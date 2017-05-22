@@ -15,7 +15,7 @@ The executable file of kubectl is generated under the _output/bin directory afte
 ###2. Install kubectl.###
 Copy kubectl to the /usr/local/bin directory.
 
-	cp _output/local/bin/linux/amd64/kubectl /usr/local/bin/
+	cp _output/bin/kubectl /usr/local/bin/
 	cp kubectlconfig/kubectlconfig.tgz ~/
 	cd ~
 	tar -xzf kubectlconfig.tgz
@@ -28,7 +28,7 @@ In Cloud Container Engine service, multiple clusters are managed within a tenant
 
 To access cluster in Open Telekom Cloud (OTC) or Huawei Web Services (HWS), configure with following command:
 
-        kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid}  
+    kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid}  
 
 As in OTC and HWS, a certificate is attached in the API Gateway, hence user dones't need to configure certificate manually.
 
@@ -40,9 +40,9 @@ To skip the certificate verification, configure cluster with following command:
 
 To use self-signed certificate, user need:  
 1. Download the certificate.  
-2. Configure cluster with following command:   
-	
-	kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid} --certificate-authority={path of certificate file}  
+2. Configure cluster with following command: 
+
+	kubectl config set-cluster {cluster name} --server={server endpoint} --cluster-uuid={cluster uuid} --certificate-authority={path of certificate file}
 
 ####2) Set credentials and context####
 
@@ -51,12 +51,28 @@ Run the following commands to configure kubectl:
 	kubectl config set-credentials {user name} --access-key={access key} --secret-key={secret key} --region-id={region id}
 	
 	kubectl config set-context {context name} --cluster={cluster name} --user={user name}
+
+Use this context as current-context
 	
 	kubectl config set current-context {context name}
 
 To view configuration information, run the **Kubectl config view** command or **cat  ~/.kube/config** command.
 
 ###4. Switch kubectl between CCE and original k8s.###
+
+####1)Still, connecting original k8s clusters is also supported by these configurations. 
+
+	kubectl config set-cluster {cluster name} --server={server endpoint}
+	--certificate-authority={CA_CERT}
+	
+	kubectl config set-credentials {user name} --certificate-authority={CA_CERT} --client-key={ADMIN_KEY} --client-certificate={ADMIN_CERT}
+	
+	kubectl config set-context {contenxt name} --cluster={cluster name} --user={user name}
+	
+####2)Switch current-context to which you want by following command.
+
+	kubectl config set current-context {context name}
+
 
 ###5. Supported Commands for CCE###
 
@@ -140,4 +156,3 @@ run   |
 		
 		
 		
-
